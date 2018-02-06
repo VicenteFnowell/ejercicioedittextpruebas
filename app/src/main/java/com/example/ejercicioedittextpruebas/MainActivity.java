@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,16 +47,30 @@ TextView tvResultado;
 
     public void Obtenerresultados (View view){
 
-        //Recogemos el valor de los etnombre y apellidos
+        //Recogemos los valores seleccionados
         String nombre = etNombre.getText().toString();
         String apellidos = etApellidos.getText().toString();
         String edad = etEdad.getText().toString();
         String provincia = spProvincias.getSelectedItem().toString();
+        int idRadio=rgSexo.getCheckedRadioButtonId();
 
-        if(nombre.equals("")|| apellidos.equals("")|| edad.equals("")|| provincia.equals("Selecciona")){
+        boolean esEstudiante=false;
+        if(cbEstudiante.isChecked()){
+            esEstudiante=true;
+        }
+
+
+
+        if(nombre.equals("")|| apellidos.equals("")|| edad.equals("")|| provincia.equals("Selecciona")||idRadio==-1){
             Toast.makeText(getApplicationContext(),"Debes rellenar los campos",Toast.LENGTH_LONG).show();
+
         }else {
-            tvResultado.setText("Resultado: "+nombre+" "+apellidos+ " "+edad);
+
+            RadioButton rbsexoseleccionado = (RadioButton)findViewById(idRadio);
+            String textorbsexoseleccionado = rbsexoseleccionado.getText().toString();
+            tvResultado.setText("Resultado: Su nombre es "+nombre+" "+apellidos+ " tiene "+edad+ " años de edad, su sexo es "
+                    +textorbsexoseleccionado+ " y es de " +provincia);
+
         }
 
 
